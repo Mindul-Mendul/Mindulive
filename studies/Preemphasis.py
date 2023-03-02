@@ -12,8 +12,7 @@
 import numpy as np
 
 def preemphasis(signal):
-    pre_emphasis = 0.97
-    emphasized_signal = np.append(signal[0], signal[1:] - pre_emphasis * signal[:-1])
-    print(emphasized_signal)
-    return emphasized_signal
+  pre_emphasis = 0.97
+  emphasized_signal = np.append(signal[0], signal[1:] - pre_emphasis * signal[:-1])
+  return emphasized_signal
 
