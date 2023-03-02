@@ -1,34 +1,38 @@
-import torch
-import torchaudio
-
-print(torch.__version__)
-print(torchaudio.__version__)
-
-import io
-import os
-import tarfile
-import tempfile
-
-import boto3
+#%%
 import matplotlib.pyplot as plt
-import requests
-from botocore import UNSIGNED
-from botocore.config import Config
-from IPython.display import Audio
-from torchaudio.utils import download_asset
+import librosa
+import librosa.display
 
-print(str(torchaudio.get_audio_backend()))
+# 파일 불러오기
+x, sr = librosa.load('./ttsFile/example1.mp3')
 
-# SAMPLE_GSM = download_asset("tutorial-assets/steam-train-whistle-daniel_simon.gsm")
-# SAMPLE_WAV = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042.wav")
-# SAMPLE_WAV_8000 = download_asset("tutorial-assets/Lab41-SRI-VOiCES-src-sp0307-ch127535-sg0042-8000hz.wav")
+# 파형 그래프(wave graph)
+FIG_SIZE=(15, 10)
+plt.figure(figsize=FIG_SIZE)
+librosa.display.waveshow(x, sr=sr)
 
-# metadata=torchaudio.info(SAMPLE_WAV)
-# print(metadata)
+# short time Fourier transform graph (spectrogram)
+# cast amplitude to decibels (apply logarithm)
+X = librosa.stft(x)
+Xdb = librosa.amplitude_to_db(abs(X))
+plt.figure(figsize=(14, 5))
+librosa.display.specshow(Xdb, sr=sr, x_axis='time', y_axis='hz')
+plt.colorbar()
 
-# waveform, sample_rate = torchaudio.load(SAMPLE_WAV_SPEECH_PATH)
+# MFCCS
+## Extract 13 MFCCs
+n_fft=2048
+hop_length=512
 
-# print_stats(waveform, sample_rate=sample_rate)
-# plot_waveform(waveform, sample_rate)
-# plot_specgram(waveform, sample_rate)
-# play_audio(waveform, sample_rate)
+MFCCs=librosa.feature.mfcc(S=x, sr=sr, n_fft=n_fft, hop_length=hop_length, n_mfcc=13)
+# print('MFCCs.shape : ', MFCCs.shape)
+##Display MFCCs
+plt.figure(figsize=FIG_SIZE)
+librosa.display.specshow(MFCCs, sr=sr, hop_length=hop_length)
+plt.xlabel("Time")
+plt.ylabel("MFCC Coefficients")
+plt.colorbar()
+plt.title("MFCCs")
+
+# 그림 그리기
+plt.show()
