@@ -15,5 +15,3 @@ def mfccs(filter_banks):
   n = np.arange(ncoeff)
   lift = 1 + (cep_lifter / 2) * np.sin(np.pi * n / cep_lifter)
   mfcc *= lift
-
-
