@@ -6,7 +6,7 @@ import scipy.io.wavfile
 # len(signal)/sample_rate: 음성의 길이 (해당 값이 11.455면 음성파일이 11.455초짜리 음성이라는 뜻)
 # signal[int(a*sample_rate):int(b*sample_rate)]: signal을 a~b초 사이를 자르는 방법
 
-sample_rate, signal = scipy.io.wavfile.read('./studies/test.wav')
+sample_rate, signal = scipy.io.wavfile.read('./studiesMFCC/test.wav')
 time = len(signal) / sample_rate # 전체 signal의 길이 [s]
 signal = signal[0:int(3.5 * sample_rate)] # 0s ~ 3.5s로 자름
 
@@ -31,6 +31,7 @@ from FilterBanks import melScaleFilter
 filter_banks = melScaleFilter(sample_rate, frames)
 
 # MFCCs
-from MFCCs import mfccs
+from MFCCs import mfccs, showMFCCs
 
 mfcc=mfccs(filter_banks)
+showMFCCs(mfcc)

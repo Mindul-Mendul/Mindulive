@@ -23,4 +23,11 @@
 4. 가까운 소리를 선택할 수 있는 주파수 세기 파형을 어떻게 건드려야 하는지 학습함
 5. 2-4를 계속 반복시킴
 
+## 목소리 만들기 계획
+1. 학습 데이터와 mel-spectogram generator와 vocoder가 필요
+학습 데이터 준비 => mel-spectogram generator 학습 => vocoder로 목소리 내기
+연구의 가장 큰 중요부분은 mel-spectogram generator의 학습
+
+ 
+
 
